@@ -1,0 +1,49 @@
+= machine-learning-max-audio-feedback
+Audio feedback extractor for machine learning course - exercise
+
+
+URL of repo:
+https://github.com/nearnshaw/machine-learning-max-audio-feedback
+
+
+== Overview
+
+This Max/MSP patch analyzes the audio signal that comes in through the mic and outputs messages that consist of a few parameters of the signal at a given instant. A UI allows you to use knobs and sliders to set a few parameters to clean up your audio signal before analysis and for editing the output.
+
+It extracts the following data:
+
+. current time (in seconds)
+. Peak amplitude of the fundamental pitch at a given instant
+. Average amplitude over a configurable period of time
+. Fundamental pitch expressed in hertz
+. Fundamental pitch expressed as a MIDI note
+
+
+Through the UI, you can change the following parameters:
+
+. Low pass filter (ignores all signals higher than a certain freq - default 4200 Hz)
+. Hi pass filter (ignores all signals below a certain freq - Default 200 Hz)
+. Sensitivity (gain multiplier)
+. Gain Average Period (how many milliseconds to round up to obtain the average gain)
+. Noise Gate (ignores any sound below a certain threshold - default 250)
+. Output interval (you can time how often to send data samples... min 1 ms, max 1 full second  (this will of course also be limited by the sample rate that your processor can achieve)
+
+== Installation
+
+No installation needed, you just need to have a copy of Max/MSP installed. Open the patcher and it should work out of the box. There are no libraries being used that don't come by default with MAX.
+
+== Usage
+
+If you're not in the preview mode (ie you can see all the wires) click `Ctrl + Alt + E` to toggle the presentation mode. There you can see a simplified view with only the UI you need to interact with.
+
+Click on the mic icon to toggle audio processing on or off, or press the `space` key to toggle it on/off and the `esc` key to turn it off.
+
+An FFT chart will display a quick feedback view of the audio that is being processed, after passing through filters etc.
+
+== Message Routing
+
+This patch routes a steady OSC signal (at the chosen interval) to:
+
+*Port 6448 : wekinator/control/outputs*
+
+
